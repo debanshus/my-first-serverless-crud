@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Map;
 
-public class CreateEmployeeHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class UpdateEmployeeHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -22,11 +22,12 @@ public class CreateEmployeeHandler implements RequestHandler<Map<String, Object>
         try {
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
             Employee employee = new Employee();
+            employee.setId(body.get("id").asText());
             employee.setEmpId(body.get("empId").asText());
             employee.setName(body.get("name").asText());
 
             EmployeeDAO dao = new EmployeeDAO();
-            dao.save(employee);
+            dao.update(employee);
 
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)

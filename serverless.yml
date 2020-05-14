@@ -57,6 +57,13 @@ functions:
           path: /employees
           method: post
 
+  updateEmployee:
+    handler: com.serverless.handler.UpdateEmployeeHandler
+    events:
+      - http:
+          path: /employees
+          method: put
+
   deleteEmployee:
     handler: com.serverless.handler.DeleteEmployeeHandler
     events:
